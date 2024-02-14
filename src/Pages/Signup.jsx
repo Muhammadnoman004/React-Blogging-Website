@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import './Authentication.css'
 import { auth, createUserWithEmailAndPassword } from '../Firebase Config/Config'
 
 export default function Signup() {
@@ -7,6 +8,7 @@ export default function Signup() {
     let [email, setemail] = useState('')
     let [password, setpassword] = useState('')
     let [confirmpassword, setconfirmpassword] = useState('')
+    let New_Password;
 
     const NameInpValue = (e) => {
         setname(e.target.value)
@@ -25,33 +27,40 @@ export default function Signup() {
         console.log(email);
         console.log(password);
         console.log(confirmpassword);
-        setname('')
-        setemail('')
-        setpassword('')
-        setconfirmpassword('')
-
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                console.log(user);
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorMessage);
-            });
+        if (name == '' || email == '' || password == '' || confirmpassword == '') {
+            alert("Please fill all field")
+        }
+        else {
+            if (password == confirmpassword) {
+                New_Password = confirmpassword;
+            }
+            createUserWithEmailAndPassword(auth, email, New_Password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    console.log(user);
+                    setname('')
+                    setemail('')
+                    setpassword('')
+                    setconfirmpassword('')
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.log(errorMessage);
+                });
+        }
 
     }
 
-
     return (
-        <div>
-            <h1>SignUp</h1>
-            <input onChange={NameInpValue} value={name} placeholder='Full Name' type="text" name="" id="1" /><br />
-            <input onChange={EmailInpValue} value={email} placeholder='Email' type="email" name="" id="2" /><br />
-            <input onChange={PassInpValue} value={password} placeholder='Password' type="password" name="" id="3" /><br />
-            <input onChange={ConfirmPassInpValue} value={confirmpassword} placeholder='Confirm Password' type="password" name="" id="4" /><br />
-            <button onClick={SignUpFun}>SignUp</button>
+        <div className='mainDiv'>
+            <h1 id='head'>SignUp</h1>
+            <input onChange={NameInpValue} value={name} className='form-control' placeholder='Full Name' type="text" name="" id="1" /><br />
+            <input onChange={EmailInpValue} value={email} className='form-control' placeholder='Email' type="email" name="" id="2" /><br />
+            <input onChange={PassInpValue} value={password} className='form-control' placeholder='Password' type="password" name="" id="3" /><br />
+            <input onChange={ConfirmPassInpValue} value={confirmpassword} className='form-control' placeholder='Confirm Password' type="password" name="" id="4" /><br />
+            <button onClick={SignUpFun} className='btn btn-primary LogsignUpBtn'>SignUp</button>
+
 
         </div>
     )

@@ -1,0 +1,26 @@
+body {
+    background-color: whitesmoke;
+}
+
+.mainDiv {
+    width: 45%;
+    margin: auto;
+    background-color: white;
+    margin-top: 20vh;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 2px 3px 7px black;
+}
+
+#head {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
+    padding-bottom: 15px;
+    text-shadow: 1px 1px 2px rgb(0, 140, 255);
+}
+
+.LogsignUpBtn {
+    width: 100%;
+    margin-bottom: 15px;
+    margin-top: 10px;
+}
