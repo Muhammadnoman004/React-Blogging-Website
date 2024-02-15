@@ -1,0 +1,42 @@
+.navbar {
+    box-shadow: 2px 2px 5px rgb(128, 127, 127);
+    height: 70px;
+}
+
+.SinupNavBtn {
+    position: absolute;
+    right: 30px;
+    width: 100px;
+    border-radius: 360px;
+}
+
+.LoginNavBtn {
+    position: absolute;
+    right: 150px;
+    width: 100px;
+    border-radius: 360px;
+    border: 1px solid black;
+}
+
+.LoginNavBtn:hover {
+    box-shadow: inset 0px 0px 5px rgb(1, 94, 233);
+}
+
+@media screen and (max-width: 991px) {
+    .LoginNavBtn {
+        position: absolute;
+        left: 44%;
+        margin-top: 8vh;
+
+    }
+
+    .SinupNavBtn {
+        position: absolute;
+        left: 44%;
+        margin-top: 16vh;
+    }
+
+    .homenav {
+        padding-bottom: 100px;
+    }
+}

@@ -6,7 +6,7 @@ body {
     width: 45%;
     margin: auto;
     background-color: white;
-    margin-top: 20vh;
+    margin-top: 15vh;
     border-radius: 10px;
     padding: 20px;
     box-shadow: 2px 3px 7px black;
@@ -23,4 +23,10 @@ body {
     width: 100%;
     margin-bottom: 15px;
     margin-top: 10px;
+}
+
+@media screen and (max-width : 600px) {
+    .mainDiv {
+        width: 80%;
+    }
 }
