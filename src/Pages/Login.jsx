@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Swal from 'sweetalert2'
 import './Authentication.css'
 import { auth, signInWithEmailAndPassword } from '../Firebase Config/Config'
 
@@ -19,12 +20,23 @@ export default function Login() {
         console.log(email);
         console.log(password);
         if (email == '' || password == '') {
-            alert("Please fill all field")
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Please Fill All Field!",
+            });
         }
         else {
             signInWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     const user = userCredential.user;
+                    Swal.fire({
+                        position: "top-center",
+                        icon: "success",
+                        title: "LogIn successfully",
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
                     console.log(user);
                     setemail('')
                     setpassword('')

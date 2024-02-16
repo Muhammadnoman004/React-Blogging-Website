@@ -1,11 +1,12 @@
 .navbar {
-    height: 70px;
+    height: 20px;
     background-color: white;
 }
 
 #logo {
-    width: 100px;
-    padding-top: 5px;
+    width: 80px;
+    padding-top: 40px;
+    cursor: pointer;
 }
 
 #nav {
@@ -14,7 +15,7 @@
 }
 
 .navtext {
-    padding-top: 15px;
+    padding-top: 45px;
     font-weight: bold;
     font-family: 'Times New Roman', Times, serif;
     font-size: 27px;
@@ -25,6 +26,7 @@
     right: 30px;
     width: 100px;
     border-radius: 360px;
+    margin-top: 12px;
 }
 
 .LoginNavBtn {
@@ -33,6 +35,7 @@
     width: 100px;
     border-radius: 360px;
     border: 1px solid black;
+    margin-top: 12px;
 }
 
 .LoginNavBtn:hover {
@@ -42,6 +45,7 @@
 @media screen and (max-width: 991px) {
     .LoginNavBtn {
         position: absolute;
+        top: 90px;
         left: 0;
         width: 30%;
         margin-left: 30px;
@@ -50,6 +54,7 @@
 
     .SinupNavBtn {
         position: absolute;
+        top: 100px;
         left: 0;
         width: 30%;
         margin-top: 50px;
@@ -58,5 +63,13 @@
 
     .homenav {
         padding-bottom: 100px;
+    }
+
+    #logo {
+        padding-top: 0;
+    }
+
+    .navtext {
+        padding-top: 0;
     }
 }

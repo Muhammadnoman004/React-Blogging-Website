@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
+import Swal from 'sweetalert2'
+import { useNavigate } from 'react-router-dom'
 import './Authentication.css'
 import { auth, createUserWithEmailAndPassword } from '../Firebase Config/Config'
 
 export default function Signup() {
 
+    let navigate = useNavigate()
     let [name, setname] = useState('')
     let [email, setemail] = useState('')
     let [password, setpassword] = useState('')
@@ -28,7 +31,11 @@ export default function Signup() {
         console.log(password);
         console.log(confirmpassword);
         if (name == '' || email == '' || password == '' || confirmpassword == '') {
-            alert("Please fill all field")
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Please Fill All Field!",
+            });
         }
         else {
             if (password == confirmpassword) {
@@ -37,7 +44,15 @@ export default function Signup() {
             createUserWithEmailAndPassword(auth, email, New_Password)
                 .then((userCredential) => {
                     const user = userCredential.user;
+                    Swal.fire({
+                        position: "top-center",
+                        icon: "success",
+                        title: "SignUp successfully",
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
                     console.log(user);
+                    navigate('./login')
                     setname('')
                     setemail('')
                     setpassword('')

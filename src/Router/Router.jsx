@@ -9,9 +9,10 @@ export default function Router() {
         <div>
             <BrowserRouter>
                 <Routes>
-                    <Route path='/' element={<Signup/>}/>
-                    <Route path='/login' element={<Login/>}/>
-                    <Route path='/navbar' element={<Navbar/>}/>
+                    <Route path='/' element={<Navbar />} />
+                    <Route path='/signup' element={<Signup />} />
+                    <Route path='/signup/login' element={<Login />} />
+                    <Route path='/login' element={<Login />} />
                 </Routes>
             </BrowserRouter>
 
