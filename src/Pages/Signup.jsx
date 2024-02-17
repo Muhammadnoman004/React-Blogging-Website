@@ -3,6 +3,7 @@ import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
 import './Authentication.css'
 import { auth, createUserWithEmailAndPassword } from '../Firebase Config/Config'
+import { db, collection, addDoc } from '../Firebase Config/Config'
 
 export default function Signup() {
 
@@ -42,8 +43,22 @@ export default function Signup() {
                 New_Password = confirmpassword;
             }
             createUserWithEmailAndPassword(auth, email, New_Password)
-                .then((userCredential) => {
+                .then(async (userCredential) => {
                     const user = userCredential.user;
+                    console.log(user);
+
+                    try {
+                        const docRef = await addDoc(collection(db, "users"), {
+                            Full_Name: name,
+                            Email: email,
+                            Password: New_Password,
+                            Date: new Date().toLocaleString()
+                        });
+                        console.log("Document written with ID: ", docRef.id);
+                    } catch (e) {
+                        console.error("Error adding document: ", e);
+                    }
+
                     Swal.fire({
                         position: "top-center",
                         icon: "success",
@@ -51,7 +66,6 @@ export default function Signup() {
                         showConfirmButton: false,
                         timer: 2000
                     });
-                    console.log(user);
                     navigate('./login')
                     setname('')
                     setemail('')
@@ -61,7 +75,11 @@ export default function Signup() {
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
-                    console.log(errorMessage);
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: errorCode,
+                    });
                 });
         }
 

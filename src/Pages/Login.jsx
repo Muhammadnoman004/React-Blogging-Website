@@ -44,7 +44,11 @@ export default function Login() {
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
-                    console.log(errorMessage);
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: errorCode,
+                    });
                 });
         }
     }
@@ -55,7 +59,7 @@ export default function Login() {
             <h1 id='head'>LogIn</h1>
             <input onChange={EmailInpValue} value={email} className='form-control' placeholder='Email' type="email" name="" id="1" /><br />
             <input onChange={PassInpValue} value={password} className='form-control' placeholder='Password' type="password" name="" id="2" /><br />
-            <button onClick={LogInFun} className='btn btn-primary LogsignUpBtn'>SignUp</button>
+            <button onClick={LogInFun} className='btn btn-primary LogsignUpBtn'>Login</button>
 
         </div>
     )
