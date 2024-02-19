@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import './Authentication.css'
 import { auth, createUserWithEmailAndPassword } from '../Firebase Config/Config'
 import { db, collection, addDoc } from '../Firebase Config/Config'
+import Navbar from '../Navbar/Navbar'
 
 export default function Signup() {
 
@@ -66,7 +67,7 @@ export default function Signup() {
                         showConfirmButton: false,
                         timer: 2000
                     });
-                    navigate('./login')
+                    navigate('/login')
                     setname('')
                     setemail('')
                     setpassword('')
@@ -86,15 +87,17 @@ export default function Signup() {
     }
 
     return (
-        <div className='mainDiv'>
-            <h1 id='head'>SignUp</h1>
-            <input onChange={NameInpValue} value={name} className='form-control' placeholder='Full Name' type="text" name="" id="1" /><br />
-            <input onChange={EmailInpValue} value={email} className='form-control' placeholder='Email' type="email" name="" id="2" /><br />
-            <input onChange={PassInpValue} value={password} className='form-control' placeholder='Password' type="password" name="" id="3" /><br />
-            <input onChange={ConfirmPassInpValue} value={confirmpassword} className='form-control' placeholder='Confirm Password' type="password" name="" id="4" /><br />
-            <button onClick={SignUpFun} className='btn btn-primary LogsignUpBtn'>SignUp</button>
+        <div>
+            <Navbar />
+            <div className='mainDiv'>
+                <h1 id='head'>SignUp</h1>
+                <input onChange={NameInpValue} value={name} className='form-control' placeholder='Full Name' type="text" name="" id="1" /><br />
+                <input onChange={EmailInpValue} value={email} className='form-control' placeholder='Email' type="email" name="" id="2" /><br />
+                <input onChange={PassInpValue} value={password} className='form-control' placeholder='Password' type="password" name="" id="3" /><br />
+                <input onChange={ConfirmPassInpValue} value={confirmpassword} className='form-control' placeholder='Confirm Password' type="password" name="" id="4" /><br />
+                <button onClick={SignUpFun} className='btn btn-primary LogsignUpBtn'>SignUp</button>
 
-
+            </div>
         </div>
     )
 }

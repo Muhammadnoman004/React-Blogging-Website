@@ -19,8 +19,8 @@ export default function Navbar() {
                             <li className="nav-item homenav">
                                 <a className="nav-link active" aria-current="page" href="#"></a>
                             </li>
-                            <Link to={'./login'}><button className='btn LoginNavBtn'>Login</button></Link>
-                            <Link to={'./signup'}><button className='btn btn-primary SinupNavBtn'>Signup</button></Link>
+                            <Link to={'/login'}><button className='btn LoginNavBtn'>Login</button></Link>
+                            <Link to={'/signup'}><button className='btn btn-primary SinupNavBtn'>Signup</button></Link>
                         </ul>
 
                     </div>
