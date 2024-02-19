@@ -1,0 +1,113 @@
+.fullName {
+    position: absolute;
+    right: 270px;
+    width: auto;
+    border-radius: 360px;
+    margin-top: 12px;
+    border: 1px solid rgb(3, 111, 199);
+}
+
+.fullName:hover {
+    background-color: rgb(3, 120, 216);
+    color: white;
+}
+
+.logout {
+    position: absolute;
+    right: 30px;
+    width: 100px;
+    border-radius: 360px;
+    margin-top: 12px;
+}
+
+.logout:hover {
+    background-color: white;
+    color: rgb(3, 120, 216);
+}
+
+.home {
+    position: absolute;
+    right: 150px;
+    width: 100px;
+    border-radius: 360px;
+    border: 1px solid rgb(3, 120, 216);
+    margin-top: 12px;
+}
+
+.home:hover {
+    box-shadow: inset 0px 0px 5px rgb(1, 94, 233);
+    background-color: rgb(3, 120, 216);
+    color: white;
+}
+
+#dash {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
+    background-color: white;
+    width: 100%;
+    text-align: start;
+    padding-left: 30px;
+    padding-top: 25px;
+    height: 100px;
+    border-radius: 10px;
+    box-shadow: inset 2px 2px 5px rgb(128, 127, 127);
+
+}
+
+#dash>span {
+    color: rgb(3, 111, 199);
+
+}
+
+/* Media Query */
+
+@media screen and (max-width: 991px) {
+    .fullName {
+        position: absolute;
+        top: 90px;
+        left: 0;
+        width: 30%;
+        margin-left: 30px;
+    }
+
+    .home {
+        position: absolute;
+        top: 140px;
+        left: 0;
+        width: 30%;
+        margin-left: 30px;
+
+    }
+
+    .logout {
+        position: absolute;
+        top: 150px;
+        left: 0;
+        width: 30%;
+        margin-top: 50px;
+        margin-left: 30px;
+    }
+
+    .homenav {
+        padding-bottom: 150px;
+    }
+
+}
+
+@media screen and (max-width: 330px) {
+    .fullName {
+        width: 50%;
+        margin-left: 80px;
+    }
+
+    .home {
+        width: 50%;
+        margin-left: 80px;
+    }
+
+    .logout {
+        width: 50%;
+        margin-left: 80px;
+    }
+
+}

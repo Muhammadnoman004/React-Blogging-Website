@@ -29,17 +29,23 @@
     margin-top: 12px;
 }
 
+.SinupNavBtn:hover {
+    background-color: white;
+    color: rgb(3, 120, 216);
+}
+
 .LoginNavBtn {
     position: absolute;
     right: 150px;
     width: 100px;
     border-radius: 360px;
-    border: 1px solid black;
+    border: 1px solid rgb(3, 120, 216);
     margin-top: 12px;
 }
 
 .LoginNavBtn:hover {
-    box-shadow: inset 0px 0px 5px rgb(1, 94, 233);
+    background-color: rgb(3, 120, 216);
+    color: white;
 }
 
 @media screen and (max-width: 991px) {
