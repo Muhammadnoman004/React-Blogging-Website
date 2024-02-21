@@ -1,5 +1,6 @@
 import React from 'react'
 import './Dashboard.css'
+import { Link } from 'react-router-dom'
 import logo from '../assets/blog-removebg-preview.png'
 
 export default function Dashboard() {
@@ -17,7 +18,7 @@ export default function Dashboard() {
               <li className="nav-item homenav">
                 <a className="nav-link active" aria-current="page" href="#"></a>
               </li>
-              <button className='btn fullName'>Full Name</button>
+              <Link to={'/profile'}><button className='btn fullName'>Full Name</button></Link>
               <button className='btn home'>Home</button>
               <button className='btn btn-primary logout'>Logout</button>
             </ul>

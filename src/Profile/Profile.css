@@ -1,0 +1,139 @@
+.dashboard {
+    position: absolute;
+    right: 150px;
+    width: 100px;
+    border-radius: 360px;
+    border: 1px solid rgb(3, 120, 216);
+    margin-top: 12px;
+}
+
+.dashboard:hover {
+    box-shadow: inset 0px 0px 5px rgb(1, 94, 233);
+    background-color: rgb(3, 120, 216);
+    color: white;
+}
+
+.logoutnav {
+    position: absolute;
+    right: 30px;
+    width: 100px;
+    border-radius: 360px;
+    margin-top: 12px;
+}
+
+.logoutnav:hover {
+    background-color: white;
+    color: rgb(3, 120, 216);
+}
+
+#Pro {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
+    background-color: white;
+    width: 100%;
+    text-align: start;
+    padding-left: 30px;
+    padding-top: 25px;
+    height: 100px;
+    border-radius: 10px;
+    box-shadow: inset 2px 2px 5px rgb(128, 127, 127);
+
+}
+
+#Pro>span {
+    color: rgb(3, 111, 199);
+}
+
+.PeofileUpdateDiv {
+    background-color: white;
+    width: 50%;
+    margin: auto;
+    margin-top: 60px;
+    margin-bottom: 50px;
+    padding: 40px;
+    box-shadow: 0px 3px 7px rgb(128, 127, 127);
+    border-radius: 10px;
+}
+
+.ProfileImgDiv {
+    background-color: #dee2e6be;
+    min-height: 250px;
+    border-radius: 10px;
+}
+
+#ProfileImg {
+    border-radius: 360px;
+    width: 130px;
+    margin-top: 30px;
+}
+
+.ProfileImgDiv #selectImg {
+    display: none;
+}
+
+#selectImgIcon {
+    color: #036fc7;
+    margin-top: 20px;
+    font-size: 22px;
+    padding: 7px;
+    border: 1px dashed black;
+    border-radius: 360px;
+    cursor: pointer;
+}
+
+#selectImgIcon:hover {
+    color: #035faa;
+}
+
+/* Media Query */
+
+@media screen and (max-width: 991px) {
+    .dashboard {
+        position: absolute;
+        top: 90px;
+        left: 0;
+        width: 40%;
+        margin-left: 30px;
+
+    }
+
+    .logoutnav {
+        position: absolute;
+        top: 150px;
+        left: 0;
+        width: 40%;
+        margin-top: 5px;
+        margin-left: 30px;
+    }
+
+    .lidrop {
+        padding-bottom: 120px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .PeofileUpdateDiv {
+        width: 70%;
+    }
+
+    .ProfileImgDiv {
+        min-height: 200px;
+    }
+
+    #ProfileImg {
+        width: 100px;
+        margin-top: 20px;
+    }
+
+    #selectImgIcon {
+        font-size: 15px;
+    }
+
+}
+
+@media screen and (max-width: 450px) {
+    .PeofileUpdateDiv {
+        width: 85%;
+        padding: 30px;
+    }
+}
