@@ -44,7 +44,7 @@ export default function Dashboard() {
       </div>
 
       <div>
-        <h2 id='ABlogs'>All Blogs</h2>
+        <h2 id='AllBlogs'>All Blogs</h2>
         <div className='anyBlogDiv'>
           <h1>You don't have any blog yet!</h1>
         </div>

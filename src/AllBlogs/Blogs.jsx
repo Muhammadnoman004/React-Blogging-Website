@@ -1,8 +1,37 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Blogs.css'
 import user from '../assets/user.png'
+import { db, onSnapshot, collection } from '../Firebase Config/Config'
 
 export default function Blogs() {
+
+  let [AllData, setAllData] = useState([])
+  const getData = () => {
+
+    const q = (collection(db, "AllBlogs"));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        if (change.type === "added") {
+          setAllData(change.doc.data())
+        }
+        if (change.type === "modified") {
+          console.log("Modified city: ", change.doc.data());
+        }
+        if (change.type === "removed") {
+          console.log("Removed city: ", change.doc.data());
+        }
+      });
+    });
+  }
+
+  useEffect(() => {
+    getData()
+  }, [])
+
+  if (AllData.length == '') {
+    return <h1>loading...</h1>
+  }
+
   return (
     <div className='main'>
       <h1 id='welcome'><span>W</span>elCome All Members!</h1>
@@ -15,13 +44,12 @@ export default function Blogs() {
               <img src={user} alt="" id='userproimg' />
             </div>
             <div className="userNameDiv">
-              <h4 id='userproHead'>Artificial intelligent</h4>
-              <h6 id='userpronames'>Muhammad Noman - <span>{new Date().toLocaleDateString()}</span></h6>
+              <h4 id='userproHead'>{AllData.Title}</h4>
+              <h6 id='userpronames'>{AllData.ProfileName} - <span>{AllData.Date}</span></h6>
             </div>
           </div>
           <div className="blogDescDiv">
-            <p id='userblogpara'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam corporis repellat mollitia consectetur nihil repudiandae voluptatibus. Quia optio obcaecati voluptate itaque perferendis ipsam odit. Hic quae officiis illum quasi deserunt?
-              Voluptatem aspernatur totam doloremque adipisci ut blanditiis, laborum consequuntur, cumque nostrum deserunt quia laboriosam quo repellat molestias earum praesentium recusandae ullam ipsa, nemo ad quae. Modi provident sit praesentium nesciunt!</p>
+            <p id='userblogpara'>{AllData.Blog}</p>
           </div>
         </div>
       </div>
