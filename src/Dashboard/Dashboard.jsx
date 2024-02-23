@@ -1,9 +1,40 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Dashboard.css'
 import { Link } from 'react-router-dom'
 import logo from '../assets/blog-removebg-preview.png'
+import { db, addDoc, collection } from '../Firebase Config/Config'
 
 export default function Dashboard() {
+
+  let [BlogTitle, setBlogTitle] = useState("");
+  let [BlogDes, setBlogDes] = useState("");
+
+  const BlogTitleInp = (e) => {
+    setBlogTitle(e.target.value)
+  }
+  const BlogDesInp = (e) => {
+    setBlogDes(e.target.value)
+  }
+
+  // ADD DATA IN DATABASE //
+
+  const AddBlog = async () => {
+    try {
+      const docRef = await addDoc(collection(db, "AllBlogs"), {
+        Title: BlogTitle,
+        Blog: BlogDes,
+        Date: new Date().toLocaleDateString()
+      });
+      setBlogTitle("")
+      setBlogDes("")
+      console.log(BlogTitle);
+      console.log(BlogDes);
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  }
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg fixed-top">
@@ -31,16 +62,16 @@ export default function Dashboard() {
 
       <div className='BlogTitleDiv'>
 
-        <div class="mb-3">
-          <label for="formGroupExampleInput" class="form-label" id='blogtitle'>Blog Title:</label>
-          <input type="text" className="form-control" id="formGroupExampleInput" required placeholder="Enter Blog Title" />
+        <div className="mb-3">
+          <label htmlFor="formGroupExampleInput" className="form-label" id='blogtitle'>Blog Title:</label>
+          <input type="text" className="form-control" id="formGroupExampleInput" required placeholder="Enter Blog Title" value={BlogTitle} onChange={BlogTitleInp} />
         </div>
 
-        <div class="mb-3">
-          <label for="validationTextarea" class="form-label" id='blogdescription'>Blog Description:</label>
-          <textarea class="form-control" id="validationTextarea" placeholder="Enter Blog Description" required></textarea>
+        <div className="mb-3">
+          <label htmlFor="validationTextarea" className="form-label" id='blogdescription'>Blog Description:</label>
+          <textarea className="form-control" id="validationTextarea" placeholder="Enter Blog Description" required value={BlogDes} onChange={BlogDesInp}></textarea>
         </div>
-        <button className='btn btn-primary publishBtn'>Publish Blog</button>
+        <button className='btn btn-primary publishBtn' onClick={AddBlog}>Publish Blog</button>
       </div>
 
       <div>

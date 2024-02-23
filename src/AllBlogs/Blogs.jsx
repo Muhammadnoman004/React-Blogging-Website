@@ -10,17 +10,19 @@ export default function Blogs() {
 
     const q = (collection(db, "AllBlogs"));
     const unsubscribe = onSnapshot(q, (snapshot) => {
+      let Array = []
       snapshot.docChanges().forEach((change) => {
         if (change.type === "added") {
-          setAllData(change.doc.data())
+          Array.push(change.doc.data())
         }
         if (change.type === "modified") {
-          console.log("Modified city: ", change.doc.data());
+          Array.push(change.doc.data())
         }
         if (change.type === "removed") {
-          console.log("Removed city: ", change.doc.data());
+          Array.push(change.doc.data())
         }
       });
+      setAllData(Array)
     });
   }
 
@@ -38,20 +40,29 @@ export default function Blogs() {
       <h3 id='ABlogs'>All Blogs</h3>
 
       <div className="blogMainDiv">
-        <div className='blogDiv'>
-          <div className="blogDetailDiv">
-            <div className="userProfileImg">
-              <img src={user} alt="" id='userproimg' />
-            </div>
-            <div className="userNameDiv">
-              <h4 id='userproHead'>{AllData.Title}</h4>
-              <h6 id='userpronames'>{AllData.ProfileName} - <span>{AllData.Date}</span></h6>
-            </div>
-          </div>
-          <div className="blogDescDiv">
-            <p id='userblogpara'>{AllData.Blog}</p>
-          </div>
-        </div>
+
+        {
+          AllData.map((data, index) => {
+            console.log(data);
+            return (
+              <div className='blogDiv' key={index}>
+                <div className="blogDetailDiv">
+                  <div className="userProfileImg">
+                    <img src={user} alt="" id='userproimg' />
+                  </div>
+                  <div className="userNameDiv">
+                    <h4 id='userproHead'>{data.Title}</h4>
+                    <h6 id='userpronames'>{data.ProfileName} - <span>{data.Date}</span></h6>
+                  </div>
+                </div>
+                <div className="blogDescDiv">
+                  <p id='userblogpara'>{data.Blog}</p>
+                </div>
+              </div>
+            )
+          })
+        }
+
       </div>
 
     </div>
