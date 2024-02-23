@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Dashboard.css'
 import { Link } from 'react-router-dom'
 import logo from '../assets/blog-removebg-preview.png'
-import { db, addDoc, collection } from '../Firebase Config/Config'
+import user from '../assets/user.png'
+import { db, addDoc, collection, onSnapshot } from '../Firebase Config/Config'
 
 export default function Dashboard() {
 
+  let [UserBlogs, setUserBlogs] = useState([]);
   let [BlogTitle, setBlogTitle] = useState("");
   let [BlogDes, setBlogDes] = useState("");
 
@@ -15,6 +17,34 @@ export default function Dashboard() {
   const BlogDesInp = (e) => {
     setBlogDes(e.target.value)
   }
+
+  //  GETDATA FROM DATDBASE //
+
+  const GetData = () => {
+
+    const q = (collection(db, "AllBlogs"));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      let Array = []
+      snapshot.docChanges().forEach((change) => {
+        if (change.type === "added") {
+          Array.push(change.doc.data())
+        }
+        if (change.type === "modified") {
+          Array.push(change.doc.data())
+        }
+        if (change.type === "removed") {
+          Array.push(change.doc.data())
+        }
+      });
+      setUserBlogs(Array)
+      console.log(UserBlogs);
+    });
+
+  }
+  useEffect(() => {
+    GetData()
+  }, [])
+
 
   // ADD DATA IN DATABASE //
 
@@ -74,12 +104,45 @@ export default function Dashboard() {
         <button className='btn btn-primary publishBtn' onClick={AddBlog}>Publish Blog</button>
       </div>
 
-      <div>
-        <h2 id='AllBlogs'>All Blogs</h2>
-        <div className='anyBlogDiv'>
-          <h1>You don't have any blog yet!</h1>
-        </div>
-      </div>
+      <h2 id='AllBlogs'>All Blogs</h2>
+
+      {!UserBlogs.length ?
+        (
+          <div>
+            <div className='anyBlogDiv'>
+              <h1>You don't have any blog yet!</h1>
+            </div>
+          </div>
+        ) : (
+
+          <div className="blogMainDiv">
+
+            {
+              UserBlogs.map((data, index) => {
+                console.log(data);
+                return (
+                  <div className='blogDiv' key={index}>
+                    <div className="blogDetailDiv">
+                      <div className="userProfileImg">
+                        <img src={user} alt="" id='userproimg' />
+                      </div>
+                      <div className="userNameDiv">
+                        <h4 id='userproHead'>{data.Title}</h4>
+                        <h6 id='userpronames'>{"Muhammad Noman"} - <span>{data.Date}</span></h6>
+                      </div>
+                    </div>
+                    <div className="blogDescDiv">
+                      <p id='userblogpara'>{data.Blog}</p>
+                    </div>
+                  </div>
+                )
+              })
+            }
+
+          </div>
+
+        )}
+
     </div>
   )
 }
