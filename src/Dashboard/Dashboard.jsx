@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './Dashboard.css'
+import Swal from 'sweetalert2'
 import { Link } from 'react-router-dom'
 import logo from '../assets/blog-removebg-preview.png'
 import user from '../assets/user.png'
@@ -49,19 +50,35 @@ export default function Dashboard() {
   // ADD DATA IN DATABASE //
 
   const AddBlog = async () => {
-    try {
-      const docRef = await addDoc(collection(db, "AllBlogs"), {
-        Title: BlogTitle,
-        Blog: BlogDes,
-        Date: new Date().toLocaleDateString()
+
+    if (BlogTitle == '' || BlogDes == '') {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please fill all fields!",
       });
-      setBlogTitle("")
-      setBlogDes("")
-      console.log(BlogTitle);
-      console.log(BlogDes);
-      console.log("Document written with ID: ", docRef.id);
-    } catch (e) {
-      console.error("Error adding document: ", e);
+    }
+    else {
+
+      try {
+        const docRef = await addDoc(collection(db, "AllBlogs"), {
+          Title: BlogTitle,
+          Blog: BlogDes,
+          Date: new Date().toLocaleDateString()
+        });
+        Swal.fire({
+          icon: "success",
+          title: "Good job",
+          text: "Your Blog Published Successfully!",
+        });
+        setBlogTitle("")
+        setBlogDes("")
+        console.log(BlogTitle);
+        console.log(BlogDes);
+        console.log("Document written with ID: ", docRef.id);
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
     }
   }
 
@@ -133,6 +150,10 @@ export default function Dashboard() {
                     </div>
                     <div className="blogDescDiv">
                       <p id='userblogpara'>{data.Blog}</p>
+                    </div>
+                    <div className='d-flex'>
+                      <button className='btn btn-outline-primary'>Edit</button>
+                      <button className='btn btn-outline-danger mx-3'>Delete</button>
                     </div>
                   </div>
                 )
