@@ -4,7 +4,7 @@ import Swal from 'sweetalert2'
 import { Link } from 'react-router-dom'
 import logo from '../assets/blog-removebg-preview.png'
 import user from '../assets/user.png'
-import { db, addDoc, collection, onSnapshot } from '../Firebase Config/Config'
+import { db, addDoc, collection, onSnapshot, deleteDoc, doc } from '../Firebase Config/Config'
 
 export default function Dashboard() {
 
@@ -82,6 +82,20 @@ export default function Dashboard() {
     }
   }
 
+  //  DELETE DATA FROM DATABASE //
+
+  const DelData = async () => {
+    console.log("MIL GAYA");
+    // await deleteDoc(doc(db, "AllBlogs", "DC"));
+
+  }
+
+  //  UPDATE DATA FROM DATABASE //
+
+  const EditData = () => {
+    console.log("sdssdsd");
+  }
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg fixed-top">
@@ -152,8 +166,8 @@ export default function Dashboard() {
                       <p id='userblogpara'>{data.Blog}</p>
                     </div>
                     <div className='d-flex'>
-                      <button className='btn btn-outline-primary'>Edit</button>
-                      <button className='btn btn-outline-danger mx-3'>Delete</button>
+                      <button id='editbtn' data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={EditData}><i className="fa-solid fa-pen-to-square fa-xl" style={{ color: "#216ef2" }}></i></button>
+                      <button id='delbtn' onClick={DelData}><i className="fa-solid fa-trash-can fa-xl" style={{ color: "#e81202" }}></i></button>
                     </div>
                   </div>
                 )
@@ -163,6 +177,37 @@ export default function Dashboard() {
           </div>
 
         )}
+
+
+      {/* Modal  */}
+
+      <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content" style={{ backgroundColor: "whitesmoke" }}>
+            <div className="modal-header">
+              <h1 className="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+
+              <div className="mb-3">
+                <label htmlFor="formGroupExampleInput" className="form-label" id='blogtitle'>Blog Title:</label>
+                <input type="text" className="form-control" id="formGroupExampleInput" required placeholder="Enter Blog Title" value={BlogTitle} onChange={BlogTitleInp} />
+              </div>
+
+              <div className="mb-3">
+                <label htmlFor="validationTextarea" className="form-label" id='blogdescription'>Blog Description:</label>
+                <textarea className="form-control" id="validationTextarea" placeholder="Enter Blog Description" required value={BlogDes} onChange={BlogDesInp}></textarea>
+              </div>
+
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" className="btn btn-primary" data-bs-dismiss="modal">Update Blog</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </div>
   )

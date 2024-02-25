@@ -93,6 +93,25 @@
     margin-top: 30px;
 }
 
+#editbtn {
+    border: none;
+    background-color: transparent;
+}
+
+#editbtn:hover {
+    transform: scale(1.075);
+}
+
+#delbtn {
+    border: none;
+    margin-left: 15px;
+    background-color: transparent;
+}
+
+#delbtn:hover {
+    transform: scale(1.075);
+}
+
 #AllBlogs {
     text-align: start;
     padding-left: 30px;
