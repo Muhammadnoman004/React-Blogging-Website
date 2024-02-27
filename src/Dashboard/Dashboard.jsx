@@ -27,14 +27,27 @@ export default function Dashboard() {
     const unsubscribe = onSnapshot(q, (snapshot) => {
       let Array = []
       snapshot.docChanges().forEach((change) => {
+        console.log(change);
         if (change.type === "added") {
-          Array.push(change.doc.data())
+          let allData = {
+            id: change.doc.id,
+            ...change.doc.data(),
+          }
+          Array.push(allData)
         }
         if (change.type === "modified") {
-          Array.push(change.doc.data())
+          let allData = {
+            id: change.doc.id,
+            ...change.doc.data(),
+          }
+          Array.push(allData)
         }
         if (change.type === "removed") {
-          Array.push(change.doc.data())
+          let allData = {
+            id: change.doc.id,
+            ...change.doc.data(),
+          }
+          Array.push(allData)
         }
       });
       setUserBlogs(Array)
@@ -84,9 +97,9 @@ export default function Dashboard() {
 
   //  DELETE DATA FROM DATABASE //
 
-  const DelData = async () => {
+  const DelData = async (id) => {
     console.log("MIL GAYA");
-    // await deleteDoc(doc(db, "AllBlogs", "DC"));
+    await deleteDoc(doc(db, "AllBlogs", id));
 
   }
 
@@ -149,10 +162,10 @@ export default function Dashboard() {
           <div className="blogMainDiv">
 
             {
-              UserBlogs.map((data, index) => {
+              UserBlogs.map((data) => {
                 console.log(data);
                 return (
-                  <div className='blogDiv' key={index}>
+                  <div className='blogDiv' key={data.id}>
                     <div className="blogDetailDiv">
                       <div className="userProfileImg">
                         <img src={user} alt="" id='userproimg' />
@@ -167,7 +180,7 @@ export default function Dashboard() {
                     </div>
                     <div className='d-flex'>
                       <button id='editbtn' data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={EditData}><i className="fa-solid fa-pen-to-square fa-xl" style={{ color: "#216ef2" }}></i></button>
-                      <button id='delbtn' onClick={DelData}><i className="fa-solid fa-trash-can fa-xl" style={{ color: "#e81202" }}></i></button>
+                      <button id='delbtn' onClick={() => DelData(data.id)}><i className="fa-solid fa-trash-can fa-xl" style={{ color: "#e81202" }}></i></button>
                     </div>
                   </div>
                 )
