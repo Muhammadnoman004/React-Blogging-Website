@@ -11,6 +11,8 @@ export default function Dashboard() {
   let [UserBlogs, setUserBlogs] = useState([]);
   let [BlogTitle, setBlogTitle] = useState("");
   let [BlogDes, setBlogDes] = useState("");
+  let [updateBlogTitle, setupdateBlogTitle] = useState("")
+  let [updateBlogDes, setupdateBlogDes] = useState("")
 
   const BlogTitleInp = (e) => {
     setBlogTitle(e.target.value)
@@ -98,15 +100,18 @@ export default function Dashboard() {
   //  DELETE DATA FROM DATABASE //
 
   const DelData = async (id) => {
-    console.log("MIL GAYA");
     await deleteDoc(doc(db, "AllBlogs", id));
 
   }
 
   //  UPDATE DATA FROM DATABASE //
 
-  const EditData = () => {
-    console.log("sdssdsd");
+  const EditData = (data) => {
+    setupdateBlogTitle(data.Title)
+    setupdateBlogDes(data.Blog)
+    console.log(data.id);
+    console.log(updateBlogTitle);
+    console.log(updateBlogDes);
   }
 
   return (
@@ -179,7 +184,7 @@ export default function Dashboard() {
                       <p id='userblogpara'>{data.Blog}</p>
                     </div>
                     <div className='d-flex'>
-                      <button id='editbtn' data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={EditData}><i className="fa-solid fa-pen-to-square fa-xl" style={{ color: "#216ef2" }}></i></button>
+                      <button id='editbtn' data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={() => EditData(data)}><i className="fa-solid fa-pen-to-square fa-xl" style={{ color: "#216ef2" }}></i></button>
                       <button id='delbtn' onClick={() => DelData(data.id)}><i className="fa-solid fa-trash-can fa-xl" style={{ color: "#e81202" }}></i></button>
                     </div>
                   </div>
@@ -205,12 +210,12 @@ export default function Dashboard() {
 
               <div className="mb-3">
                 <label htmlFor="formGroupExampleInput" className="form-label" id='blogtitle'>Blog Title:</label>
-                <input type="text" className="form-control" id="formGroupExampleInput" required placeholder="Enter Blog Title" value={BlogTitle} onChange={BlogTitleInp} />
+                <input type="text" className="form-control" id="formGroupExampleInput" required placeholder="Enter Blog Title" defaultValue={updateBlogTitle} />
               </div>
 
               <div className="mb-3">
                 <label htmlFor="validationTextarea" className="form-label" id='blogdescription'>Blog Description:</label>
-                <textarea className="form-control" id="validationTextarea" placeholder="Enter Blog Description" required value={BlogDes} onChange={BlogDesInp}></textarea>
+                <textarea className="form-control" id="validationTextarea" placeholder="Enter Blog Description" required defaultValue={updateBlogDes}></textarea>
               </div>
 
             </div>
