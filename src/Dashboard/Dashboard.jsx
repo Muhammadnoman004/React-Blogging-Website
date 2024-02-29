@@ -4,7 +4,7 @@ import Swal from 'sweetalert2'
 import { Link } from 'react-router-dom'
 import logo from '../assets/blog-removebg-preview.png'
 import user from '../assets/user.png'
-import { db, addDoc, collection, onSnapshot, deleteDoc, doc } from '../Firebase Config/Config'
+import { db, addDoc, collection, onSnapshot, deleteDoc, updateDoc, doc } from '../Firebase Config/Config'
 
 export default function Dashboard() {
 
@@ -13,6 +13,9 @@ export default function Dashboard() {
   let [BlogDes, setBlogDes] = useState("");
   let [updateBlogTitle, setupdateBlogTitle] = useState("")
   let [updateBlogDes, setupdateBlogDes] = useState("")
+  let [updateBlogID, setupdateBlogID] = useState("")
+  let [ModalTitle, setModalTitle] = useState("")
+  let [ModalDes, setModalDes] = useState("")
 
   const BlogTitleInp = (e) => {
     setBlogTitle(e.target.value)
@@ -104,14 +107,29 @@ export default function Dashboard() {
 
   }
 
-  //  UPDATE DATA FROM DATABASE //
+  //  GET DATA IN MODAL FROM DATABASE //
 
   const EditData = (data) => {
     setupdateBlogTitle(data.Title)
     setupdateBlogDes(data.Blog)
+    setupdateBlogID(data.id)
     console.log(data.id);
     console.log(updateBlogTitle);
     console.log(updateBlogDes);
+  }
+
+  //  UPDATE DATA FROM DATABASE //
+
+  const updateData = async (id) => {
+    console.log(id);
+
+    const UpdateDataref = doc(db, "AllBlogs", id);
+
+    await updateDoc(UpdateDataref, {
+      Title: ModalTitle,
+      Blog: ModalDes,
+      Update_Time: new Date().toLocaleString()
+    });
   }
 
   return (
@@ -210,18 +228,18 @@ export default function Dashboard() {
 
               <div className="mb-3">
                 <label htmlFor="formGroupExampleInput" className="form-label" id='blogtitle'>Blog Title:</label>
-                <input type="text" className="form-control" id="formGroupExampleInput" required placeholder="Enter Blog Title" defaultValue={updateBlogTitle} />
+                <input type="text" className="form-control" id="formGroupExampleInput" required placeholder="Enter Blog Title" onChange={(e) => setModalTitle(e.target.value)} defaultValue={updateBlogTitle} />
               </div>
 
               <div className="mb-3">
                 <label htmlFor="validationTextarea" className="form-label" id='blogdescription'>Blog Description:</label>
-                <textarea className="form-control" id="validationTextarea" placeholder="Enter Blog Description" required defaultValue={updateBlogDes}></textarea>
+                <textarea className="form-control" id="validationTextarea" placeholder="Enter Blog Description" required onChange={(e) => setModalDes(e.target.value)} defaultValue={updateBlogDes}></textarea>
               </div>
 
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" className="btn btn-primary" data-bs-dismiss="modal">Update Blog</button>
+              <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={() => updateData(updateBlogID)}>Update Blog</button>
             </div>
           </div>
         </div>
