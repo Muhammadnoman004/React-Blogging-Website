@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
 import './Authentication.css'
-import { auth, createUserWithEmailAndPassword } from '../Firebase Config/Config'
+import { auth, createUserWithEmailAndPassword, onAuthStateChanged } from '../Firebase Config/Config'
 import { db, collection, addDoc } from '../Firebase Config/Config'
 import Navbar from '../Navbar/Navbar'
 
@@ -27,6 +27,18 @@ export default function Signup() {
     const ConfirmPassInpValue = (e) => {
         setconfirmpassword(e.target.value)
     }
+
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            const uid = user.uid;
+            navigate("/dashboard");
+        } else {
+            console.log("User not found");
+        }
+    });
+
+
     const SignUpFun = () => {
         console.log(name);
         console.log(email);

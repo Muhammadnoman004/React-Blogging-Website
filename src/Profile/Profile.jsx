@@ -1,10 +1,24 @@
 import React from 'react'
 import './Profile.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import logo from '../assets/blog-removebg-preview.png'
 import UserProImg from '../assets/user.png'
+import { auth, signOut } from '../Firebase Config/Config'
 
 export default function Profile() {
+    const navigate = useNavigate();
+
+    const logOut = () => {
+        signOut(auth).then(() => {
+            // Sign-out successful.
+            navigate('/')
+        }).catch((error) => {
+            // An error happened.
+            console.log(error);
+        });
+
+    }
+
     return (
         <div>
 
@@ -21,7 +35,7 @@ export default function Profile() {
                                 <a className="nav-link active" aria-current="page" href="#"></a>
                             </li>
                             <Link to={'/dashboard'}><button className='btn dashboard'>Dashboard</button></Link>
-                            <button className='btn btn-primary logoutnav'>Logout</button>
+                            <button className='btn btn-primary logoutnav' onClick={logOut}>Logout</button>
                         </ul>
 
                     </div>
@@ -34,14 +48,14 @@ export default function Profile() {
                 <div className="ProfileImgDiv">
                     <img src={UserProImg} alt="" id='ProfileImg' /><br />
                     <input type="file" name="" id="selectImg" />
-                    <i class="fa-solid fa-camera" id='selectImgIcon'></i>
+                    <i className="fa-solid fa-camera" id='selectImgIcon'></i>
                 </div><br />
                 <div>
                     <input className='form-control' placeholder='Full Name' type="text" name="" id="1" /><br />
                     <input className='form-control' placeholder='Email' disabled type="email" name="" id="2" /><br />
                     <input className='form-control' placeholder='Old Password' type="password" name="" id="3" /><br />
                     <input className='form-control' placeholder='New Password' type="password" name="" id="4" /><br />
-                    <input className='form-control' placeholder='Confirm Password' type="password" name="" id="4" /><br /><br />
+                    <input className='form-control' placeholder='Confirm Password' type="password" name="" id="5" /><br /><br />
                     <button className='btn btn-primary '>Update</button>
                 </div>
             </div>

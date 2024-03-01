@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './Dashboard.css'
 import Swal from 'sweetalert2'
 import { Link } from 'react-router-dom'
 import logo from '../assets/blog-removebg-preview.png'
 import user from '../assets/user.png'
+import { auth, signOut } from '../Firebase Config/Config'
 import { db, addDoc, collection, onSnapshot, deleteDoc, updateDoc, doc } from '../Firebase Config/Config'
 
 export default function Dashboard() {
@@ -16,6 +18,7 @@ export default function Dashboard() {
   let [updateBlogID, setupdateBlogID] = useState("")
   let [ModalTitle, setModalTitle] = useState("")
   let [ModalDes, setModalDes] = useState("")
+  let navigate = useNavigate()
 
   const BlogTitleInp = (e) => {
     setBlogTitle(e.target.value)
@@ -132,6 +135,19 @@ export default function Dashboard() {
     });
   }
 
+  //  LOGOUT  //
+
+  const logOut = () => {
+    signOut(auth).then(() => {
+      // Sign-out successful.
+      navigate('/')
+    }).catch((error) => {
+      // An error happened.
+      console.log(error);
+    });
+
+  }
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg fixed-top">
@@ -148,7 +164,7 @@ export default function Dashboard() {
               </li>
               <Link to={'/profile'}><button className='btn fullName'>Full Name</button></Link>
               <button className='btn home'>Home</button>
-              <button className='btn btn-primary logout'>Logout</button>
+              <button className='btn btn-primary logout' onClick={logOut}>Logout</button>
             </ul>
 
           </div>
