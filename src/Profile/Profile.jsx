@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Profile.css'
 import { Link, useNavigate } from 'react-router-dom'
 import logo from '../assets/blog-removebg-preview.png'
@@ -7,31 +7,39 @@ import { auth, signOut } from '../Firebase Config/Config'
 import { doc, db, getDoc, onAuthStateChanged } from '../Firebase Config/Config'
 
 export default function Profile() {
+    let [CurrentUser, setCurrentUser] = useState([]);
     const navigate = useNavigate();
     let CurrentUserId;
+    let CurrentUserData;
 
     //  GETDATA TO CURRENTUSER    //
 
-    onAuthStateChanged(auth, async (user) => {
-        if (user) {
-            const uid = user.uid;
-            // console.log(user);
-            CurrentUserId = user.uid
+    useEffect(() => {
 
-            const docRef = doc(db, "users", CurrentUserId);
-            const docSnap = await getDoc(docRef);
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                const uid = user.uid;
+                CurrentUserId = user.uid
 
-            if (docSnap.exists()) {
-                console.log("Document data:", docSnap.data());
+                const docRef = doc(db, "users", CurrentUserId);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    CurrentUserData = docSnap.data()
+                    console.log("Document data:", CurrentUserData);
+                    setCurrentUser(CurrentUserData)
+
+                } else {
+                    // docSnap.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+
             } else {
-                // docSnap.data() will be undefined in this case
-                console.log("No such document!");
+                console.log("User not found");
             }
+        });
 
-        } else {
-            console.log("User not found");
-        }
-    });
+    }, [])
 
     //  LOGOUT  //
 
@@ -78,8 +86,8 @@ export default function Profile() {
                     <i className="fa-solid fa-camera" id='selectImgIcon'></i>
                 </div><br />
                 <div>
-                    <input className='form-control' placeholder='Full Name' type="text" name="" id="1" /><br />
-                    <input className='form-control' placeholder='Email' disabled type="email" name="" id="2" /><br />
+                    <input className='form-control' placeholder='Full Name' type="text" name="" id="1" defaultValue={CurrentUser.Full_Name} /><br />
+                    <input className='form-control' placeholder='Email' disabled type="email" name="" id="2" defaultValue={CurrentUser.Email} /><br />
                     <input className='form-control' placeholder='Old Password' type="password" name="" id="3" /><br />
                     <input className='form-control' placeholder='New Password' type="password" name="" id="4" /><br />
                     <input className='form-control' placeholder='Confirm Password' type="password" name="" id="5" /><br /><br />
