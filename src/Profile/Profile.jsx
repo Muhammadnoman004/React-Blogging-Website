@@ -4,9 +4,36 @@ import { Link, useNavigate } from 'react-router-dom'
 import logo from '../assets/blog-removebg-preview.png'
 import UserProImg from '../assets/user.png'
 import { auth, signOut } from '../Firebase Config/Config'
+import { doc, db, getDoc, onAuthStateChanged } from '../Firebase Config/Config'
 
 export default function Profile() {
     const navigate = useNavigate();
+    let CurrentUserId;
+
+    //  GETDATA TO CURRENTUSER    //
+
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            const uid = user.uid;
+            // console.log(user);
+            CurrentUserId = user.uid
+
+            const docRef = doc(db, "users", CurrentUserId);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                console.log("Document data:", docSnap.data());
+            } else {
+                // docSnap.data() will be undefined in this case
+                console.log("No such document!");
+            }
+
+        } else {
+            console.log("User not found");
+        }
+    });
+
+    //  LOGOUT  //
 
     const logOut = () => {
         signOut(auth).then(() => {

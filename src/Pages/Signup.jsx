@@ -3,7 +3,7 @@ import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
 import './Authentication.css'
 import { auth, createUserWithEmailAndPassword, onAuthStateChanged } from '../Firebase Config/Config'
-import { db, collection, addDoc } from '../Firebase Config/Config'
+import { db, setDoc, doc } from '../Firebase Config/Config'
 import Navbar from '../Navbar/Navbar'
 
 export default function Signup() {
@@ -61,13 +61,13 @@ export default function Signup() {
                     console.log(user);
 
                     try {
-                        const docRef = await addDoc(collection(db, "users"), {
+                        await setDoc(doc(db, "users", user.uid), {
                             Full_Name: name,
                             Email: email,
                             Password: New_Password,
                             Date: new Date().toLocaleString()
                         });
-                        console.log("Document written with ID: ", docRef.id);
+
                     } catch (e) {
                         console.error("Error adding document: ", e);
                     }
