@@ -4,10 +4,12 @@ import { Link, useNavigate } from 'react-router-dom'
 import logo from '../assets/blog-removebg-preview.png'
 import UserProImg from '../assets/user.png'
 import { auth, signOut } from '../Firebase Config/Config'
-import { doc, db, getDoc, onAuthStateChanged } from '../Firebase Config/Config'
+import { doc, db, getDoc, updateDoc, onAuthStateChanged } from '../Firebase Config/Config'
 
 export default function Profile() {
     let [CurrentUser, setCurrentUser] = useState([]);
+    let [CurrentUserDataID, setCurrentUserDataID] = useState("");
+    let [UpdateUserName, setUpdateUserName] = useState("");
     const navigate = useNavigate();
     let CurrentUserId;
     let CurrentUserData;
@@ -27,10 +29,10 @@ export default function Profile() {
                 if (docSnap.exists()) {
                     CurrentUserData = docSnap.data()
                     console.log("Document data:", CurrentUserData);
+                    setCurrentUserDataID(docSnap.id);
                     setCurrentUser(CurrentUserData)
 
                 } else {
-                    // docSnap.data() will be undefined in this case
                     console.log("No such document!");
                 }
 
@@ -40,6 +42,17 @@ export default function Profile() {
         });
 
     }, [])
+
+    //  UPDATE PROFILE  //
+
+    const UpdateBtn = async (uid) => {
+        const userDataRef = doc(db, "users", uid);
+
+        await updateDoc(userDataRef, {
+            Full_Name: UpdateUserName
+        });
+        console.log(userDataRef);
+    }
 
     //  LOGOUT  //
 
@@ -86,12 +99,12 @@ export default function Profile() {
                     <i className="fa-solid fa-camera" id='selectImgIcon'></i>
                 </div><br />
                 <div>
-                    <input className='form-control' placeholder='Full Name' type="text" name="" id="1" defaultValue={CurrentUser.Full_Name} /><br />
+                    <input className='form-control' placeholder='Full Name' type="text" name="" id="1" onChange={(e) => setUpdateUserName(e.target.value)} defaultValue={CurrentUser.Full_Name} /><br />
                     <input className='form-control' placeholder='Email' disabled type="email" name="" id="2" defaultValue={CurrentUser.Email} /><br />
                     <input className='form-control' placeholder='Old Password' type="password" name="" id="3" /><br />
                     <input className='form-control' placeholder='New Password' type="password" name="" id="4" /><br />
                     <input className='form-control' placeholder='Confirm Password' type="password" name="" id="5" /><br /><br />
-                    <button className='btn btn-primary '>Update</button>
+                    <button className='btn btn-primary' onClick={() => UpdateBtn(CurrentUserDataID)}>Update</button>
                 </div>
             </div>
         </div>
