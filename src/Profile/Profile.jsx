@@ -51,10 +51,20 @@ export default function Profile() {
     const UpdateBtn = async (uid) => {
         const userDataRef = doc(db, "users", uid);
 
-        await updateDoc(userDataRef, {
-            Full_Name: UpdateUserName
-        });
-        console.log(userDataRef);
+        if (UpdateUserName == "") {
+            setUpdateUserName(CurrentUser.Full_Name);
+        }
+        else {
+            await updateDoc(userDataRef, {
+                Full_Name: UpdateUserName
+            });
+            console.log(userDataRef);
+            Swal.fire({
+                title: "Good job!",
+                text: "You clicked the button!",
+                icon: "success"
+            });
+        }
         if (UpdateOldPass && UpdateNewPass && UpdateConfirmPass) {
             updateUserPassword()
         }
@@ -73,12 +83,16 @@ export default function Profile() {
                 currentuser.email,
                 UpdateOldPass
             )
-            reauthenticateWithCredential(currentuser, credential).then((res) => {
+            reauthenticateWithCredential(currentuser, credential).then(async (res) => {
                 console.log('res--->', res);
                 updatePassword(currentuser, UpdateConfirmPass).then(() => {
                     console.log("Password Updated!");
                 }).catch((error) => {
                     console.log(error);
+                });
+                const userDataRef = doc(db, "users", CurrentUserDataID);
+                await updateDoc(userDataRef, {
+                    Password: UpdateConfirmPass
                 });
             }).catch((error) => {
                 console.log(error);
@@ -94,10 +108,8 @@ export default function Profile() {
 
     const logOut = () => {
         signOut(auth).then(() => {
-            // Sign-out successful.
             navigate('/')
         }).catch((error) => {
-            // An error happened.
             console.log(error);
         });
 
