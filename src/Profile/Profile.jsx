@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Swal from 'sweetalert2'
 import './Profile.css'
 import { Link, useNavigate } from 'react-router-dom'
 import logo from '../assets/blog-removebg-preview.png'
@@ -60,8 +61,8 @@ export default function Profile() {
             });
             console.log(userDataRef);
             Swal.fire({
-                title: "Good job!",
-                text: "You clicked the button!",
+                title: "Profile!",
+                text: "Profile Updated!",
                 icon: "success"
             });
         }
@@ -86,20 +87,36 @@ export default function Profile() {
             reauthenticateWithCredential(currentuser, credential).then(async (res) => {
                 console.log('res--->', res);
                 updatePassword(currentuser, UpdateConfirmPass).then(() => {
-                    console.log("Password Updated!");
+                    Swal.fire({
+                        title: "God job!",
+                        text: "Password Updated!",
+                        icon: "success"
+                    });
                 }).catch((error) => {
-                    console.log(error);
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: error,
+                    });
                 });
                 const userDataRef = doc(db, "users", CurrentUserDataID);
                 await updateDoc(userDataRef, {
                     Password: UpdateConfirmPass
                 });
             }).catch((error) => {
-                console.log(error);
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: error,
+                });
             });
         }
         else {
-            alert("password not same!")
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Please Confirm Password!",
+            });
         }
 
     }
