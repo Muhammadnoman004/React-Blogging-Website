@@ -66,7 +66,7 @@ export default function Profile() {
                 icon: "success"
             });
         }
-        if (UpdateOldPass && UpdateNewPass && UpdateConfirmPass) {
+        if (UpdateOldPass && UpdateNewPass && UpdateNewPass && UpdateConfirmPass) {
             updateUserPassword()
         }
     }
@@ -160,8 +160,10 @@ export default function Profile() {
             <div className='PeofileUpdateDiv'>
                 <div className="ProfileImgDiv">
                     <img src={UserProImg} alt="" id='ProfileImg' /><br />
-                    <input type="file" name="" id="selectImg" />
-                    <i className="fa-solid fa-camera" id='selectImgIcon'></i>
+                    <label htmlFor="selectImg">
+                        <input type="file" name="" id="selectImg" />
+                        <i className="fa-solid fa-camera" id='selectImgIcon'></i>
+                    </label>
                 </div><br />
                 <div>
                     <input className='form-control' placeholder='Full Name' type="text" name="" id="1" onChange={(e) => setUpdateUserName(e.target.value)} defaultValue={CurrentUser.Full_Name} /><br />
