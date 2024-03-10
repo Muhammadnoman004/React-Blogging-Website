@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
 import './Profile.css'
-import { Form, Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import logo from '../assets/blog-removebg-preview.png'
 import UserProImg from '../assets/user.png'
 import { auth, signOut, reauthenticateWithCredential, EmailAuthProvider, updatePassword } from '../Firebase Config/Config'
 import { doc, db, getDoc, updateDoc, onAuthStateChanged } from '../Firebase Config/Config'
-import { storage, getStorage, ref, uploadBytesResumable, getDownloadURL } from '../Firebase Config/Config'
+import { storage, ref, uploadBytesResumable, getDownloadURL } from '../Firebase Config/Config'
 
 export default function Profile() {
     let [CurrentUser, setCurrentUser] = useState([]);
@@ -83,7 +83,8 @@ export default function Profile() {
                     CurrentUserData = docSnap.data()
                     console.log("Document data:", CurrentUserData);
                     setCurrentUserDataID(docSnap.id);
-                    setCurrentUser(CurrentUserData)
+                    setCurrentUser(CurrentUserData);
+                    setProfileImg(CurrentUserData.ImageURL);
 
                 } else {
                     console.log("No such document!");
@@ -103,12 +104,23 @@ export default function Profile() {
         let ProfileURL = await downloadImageUrl(ImgFiles);
         console.log("PRofile", ProfileURL);
 
-        if (UpdateUserName == "") {
+        if (UpdateUserName == "" || ImgFiles == "") {
             setUpdateUserName(CurrentUser.Full_Name);
+            await updateDoc(userDataRef, {
+                Full_Name: CurrentUser.Full_Name,
+                ImageURL: ProfileImg
+            });
+            console.log(userDataRef);
+            Swal.fire({
+                title: "Profile!",
+                text: "Profile Updated!",
+                icon: "success"
+            });
         }
         else {
             await updateDoc(userDataRef, {
-                Full_Name: UpdateUserName
+                Full_Name: UpdateUserName,
+                ImageURL: ProfileURL
             });
             console.log(userDataRef);
             Swal.fire({
