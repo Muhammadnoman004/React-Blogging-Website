@@ -62,11 +62,13 @@
 }
 
 #ProfileImg {
-    width: 150px;
+    width: 135px;
+    height: 135px;
     margin-top: 30px;
-    aspect-ratio: 3 / 2;
-    object-fit: contain;
-    border-radius: 360%;
+    aspect-ratio: 2 / 2;
+    object-fit: cover;
+    border-radius: 50%;
+    background-color: white;
 }
 
 .ProfileImgDiv #selectImg {

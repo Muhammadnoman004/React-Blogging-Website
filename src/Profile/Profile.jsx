@@ -11,7 +11,8 @@ import { storage, getStorage, ref, uploadBytesResumable, getDownloadURL } from '
 export default function Profile() {
     let [CurrentUser, setCurrentUser] = useState([]);
     let [CurrentUserDataID, setCurrentUserDataID] = useState("");
-    let [ProfileImg, setProfileImg] = useState([]);
+    let [ProfileImg, setProfileImg] = useState("");
+    let [ImgFiles, setImgFiles] = useState([]);
     let [UpdateUserName, setUpdateUserName] = useState("");
     let [UpdateOldPass, setUpdateOldPass] = useState("");
     let [UpdateNewPass, setUpdateNewPass] = useState("");
@@ -24,8 +25,47 @@ export default function Profile() {
 
     const ProfileImgIcon = (e) => {
         setProfileImg(URL.createObjectURL(e.target.files[0]));
-
+        setImgFiles(e.target.files[0])
     }
+
+    const downloadImageUrl = (file) => {
+        return new Promise((resolve, reject) => {
+            const ProfileImageRef = ref(storage, `images/${file.name}`
+            );
+            const uploadTask = uploadBytesResumable(ProfileImageRef, file);
+
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => {
+                    const progress =
+                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log('Upload is ' + progress + '% done');
+
+                    switch (snapshot.state) {
+                        case "paused":
+                            console.log('Upload is paused');
+                            break;
+                        case "running":
+                            console.log("running");
+                            break;
+                    }
+                },
+                (error) => {
+                    reject(error);
+                },
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref)
+                        .then((downloadURL) => {
+                            resolve(downloadURL);
+                        })
+                        .catch((error) => {
+                            reject(error);
+                        });
+                }
+            );
+        });
+    };
+
 
     //  GETDATA TO CURRENTUSER    //
 
@@ -60,6 +100,8 @@ export default function Profile() {
 
     const UpdateBtn = async (uid) => {
         const userDataRef = doc(db, "users", uid);
+        let ProfileURL = await downloadImageUrl(ImgFiles);
+        console.log("PRofile", ProfileURL);
 
         if (UpdateUserName == "") {
             setUpdateUserName(CurrentUser.Full_Name);
