@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
 import './Profile.css'
-import { Link, useNavigate } from 'react-router-dom'
+import { Form, Link, useNavigate } from 'react-router-dom'
 import logo from '../assets/blog-removebg-preview.png'
 import UserProImg from '../assets/user.png'
 import { auth, signOut, reauthenticateWithCredential, EmailAuthProvider, updatePassword } from '../Firebase Config/Config'
 import { doc, db, getDoc, updateDoc, onAuthStateChanged } from '../Firebase Config/Config'
+import { storage, getStorage, ref, uploadBytesResumable, getDownloadURL } from '../Firebase Config/Config'
 
 export default function Profile() {
     let [CurrentUser, setCurrentUser] = useState([]);
     let [CurrentUserDataID, setCurrentUserDataID] = useState("");
+    let [ProfileImg, setProfileImg] = useState([]);
     let [UpdateUserName, setUpdateUserName] = useState("");
     let [UpdateOldPass, setUpdateOldPass] = useState("");
     let [UpdateNewPass, setUpdateNewPass] = useState("");
@@ -17,6 +19,13 @@ export default function Profile() {
     const navigate = useNavigate();
     let CurrentUserId;
     let CurrentUserData;
+
+    //  STORAGE //
+
+    const ProfileImgIcon = (e) => {
+        setProfileImg(URL.createObjectURL(e.target.files[0]));
+
+    }
 
     //  GETDATA TO CURRENTUSER    //
 
@@ -159,10 +168,10 @@ export default function Profile() {
 
             <div className='PeofileUpdateDiv'>
                 <div className="ProfileImgDiv">
-                    <img src={UserProImg} alt="" id='ProfileImg' /><br />
+                    <img src={ProfileImg} alt="" id='ProfileImg' /><br />
                     <label htmlFor="selectImg">
-                        <input type="file" name="" id="selectImg" />
-                        <i className="fa-solid fa-camera" id='selectImgIcon'></i>
+                        <input type="file" name="" onChange={(e) => ProfileImgIcon(e)} id="selectImg" />
+                        <i className="fa-solid fa-camera" typeof='selectImg' id='selectImgIcon'></i>
                     </label>
                 </div><br />
                 <div>

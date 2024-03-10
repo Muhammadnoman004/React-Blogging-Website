@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, reauthenticateWithCredential, EmailAuthProvider, updatePassword } from "firebase/auth";
 import { getFirestore, collection, addDoc, setDoc, getDoc, onSnapshot, deleteDoc, updateDoc, doc } from "firebase/firestore";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 
 // Your web app's Firebase configuration
@@ -20,8 +21,12 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
+// Initialize storage and get a reference to the service
+const storage = getStorage();
+
 
 export {
     auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, reauthenticateWithCredential, EmailAuthProvider, updatePassword,
-    db, collection, addDoc, setDoc, getDoc, onSnapshot, deleteDoc, updateDoc, doc
+    db, collection, addDoc, setDoc, getDoc, onSnapshot, deleteDoc, updateDoc, doc,
+    storage, getStorage, ref, uploadBytesResumable, getDownloadURL
 }
