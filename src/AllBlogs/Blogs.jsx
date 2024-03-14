@@ -31,7 +31,9 @@ export default function Blogs() {
   }, [])
 
   if (AllData.length == '') {
-    return <h1>loading...</h1>
+    return <div className="spinner-border text-primary spinerDiv" role="status">
+      <span className="visually-hidden">Loading...</span>
+    </div>
   }
 
   return (
