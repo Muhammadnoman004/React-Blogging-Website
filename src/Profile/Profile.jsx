@@ -222,7 +222,11 @@ export default function Profile() {
 
             <div className='PeofileUpdateDiv'>
                 <div className="ProfileImgDiv">
-                    <img src={ProfileImg} alt="" id='ProfileImg' /><br />
+                    {ProfileImg ? (
+                        <img src={ProfileImg} alt="" id='ProfileImg' />
+                    ) : (
+                        <img src={UserProImg} alt="" id='ProfileImg' />
+                    )}<br />
                     <label htmlFor="selectImg">
                         <input type="file" name="" onChange={(e) => ProfileImgIcon(e)} id="selectImg" />
                         <i className="fa-solid fa-camera" typeof='selectImg' id='selectImgIcon'></i>
