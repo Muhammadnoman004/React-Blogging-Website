@@ -126,12 +126,6 @@ export default function Dashboard() {
   const updateData = async (id) => {
     console.log(id);
 
-    // if (ModalTitle == '' && ModalDes == '') {
-    //   setModalTitle(updateBlogTitle);
-    //   setModalDes(updateBlogDes);
-    // }
-    // else {
-
     const UpdateDataref = doc(db, "AllBlogs", id);
 
     await updateDoc(UpdateDataref, {
@@ -139,7 +133,6 @@ export default function Dashboard() {
       Blog: ModalDes,
       Update_Time: new Date().toLocaleString()
     });
-    // }
   }
 
   //  LOGOUT  //
