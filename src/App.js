@@ -1,10 +1,33 @@
 import './App.css';
 import Router from './Router/Router';
 import LoginUser from './Context/Context';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { auth, onAuthStateChanged, getDoc, doc, db } from './Firebase Config/Config'
 
 function App() {
-  const [data, setdata] = useState(["noman", "huzaifa"]);
+  const [data, setdata] = useState(LoginUser);
+
+  useEffect(() => {
+
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const uid = user.uid;
+        console.log("Current User---->", uid);
+
+        const docRef = doc(db, "users", uid);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          setdata(docSnap.data())
+
+        } else {
+          console.log("No such document!");
+        }
+      }
+
+    });
+  }, [])
+
   return (
     <div className="App">
       <LoginUser.Provider value={[data, setdata]}>

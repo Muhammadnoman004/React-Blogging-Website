@@ -7,13 +7,9 @@ import UserProImg from '../assets/user.png'
 import { auth, signOut, reauthenticateWithCredential, EmailAuthProvider, updatePassword } from '../Firebase Config/Config'
 import { doc, db, getDoc, updateDoc, onAuthStateChanged } from '../Firebase Config/Config'
 import { storage, ref, uploadBytesResumable, getDownloadURL } from '../Firebase Config/Config'
-import LoginUser from '../Context/Context'
-import { useContext } from 'react'
 
 export default function Profile() {
-    const daaataa = useContext(LoginUser)
-    console.log(daaataa);
-    
+
     let [CurrentUser, setCurrentUser] = useState([]);
     let [CurrentUserDataID, setCurrentUserDataID] = useState("");
     let [ProfileImg, setProfileImg] = useState("");
@@ -86,7 +82,6 @@ export default function Profile() {
 
                 if (docSnap.exists()) {
                     CurrentUserData = docSnap.data()
-                    console.log("Document data:", CurrentUserData);
                     setCurrentUserDataID(docSnap.id);
                     setCurrentUser(CurrentUserData);
                     setProfileImg(CurrentUserData.ImageURL);
@@ -243,7 +238,7 @@ export default function Profile() {
                     <input className='form-control' placeholder='Old Password' type="password" name="" id="3" onChange={(e) => setUpdateOldPass(e.target.value)} /><br />
                     <input className='form-control' placeholder='New Password' type="password" name="" id="4" onChange={(e) => setUpdateNewPass(e.target.value)} /><br />
                     <input className='form-control' placeholder='Confirm Password' type="password" name="" id="5" onChange={(e) => setUpdateConfirmPass(e.target.value)} /><br /><br />
-                    <button className='btn btn-primary' onClick={() => UpdateBtn(CurrentUserDataID)}>Update</button>
+                    <button className='btn btn-primary updateBtn' onClick={() => UpdateBtn(CurrentUserDataID)}>Update</button>
                 </div>
             </div>
         </div>

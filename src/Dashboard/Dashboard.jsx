@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Dashboard.css'
 import Swal from 'sweetalert2'
@@ -7,8 +7,10 @@ import logo from '../assets/blog-removebg-preview.png'
 import user from '../assets/user.png'
 import { auth, signOut } from '../Firebase Config/Config'
 import { db, addDoc, collection, onSnapshot, deleteDoc, updateDoc, doc } from '../Firebase Config/Config'
+import LoginUser from '../Context/Context'
 
 export default function Dashboard() {
+  const [Data, setData] = useContext(LoginUser)
 
   let [UserBlogs, setUserBlogs] = useState([]);
   let [BlogTitle, setBlogTitle] = useState("");
@@ -19,6 +21,8 @@ export default function Dashboard() {
   let [ModalTitle, setModalTitle] = useState("")
   let [ModalDes, setModalDes] = useState("")
   let navigate = useNavigate()
+
+  console.log(Data);
 
   const BlogTitleInp = (e) => {
     setBlogTitle(e.target.value)
@@ -35,7 +39,7 @@ export default function Dashboard() {
     const unsubscribe = onSnapshot(q, (snapshot) => {
       let Array = []
       snapshot.docChanges().forEach((change) => {
-        console.log(change);
+        // console.log(change);
         if (change.type === "added") {
           let allData = {
             id: change.doc.id,
@@ -59,7 +63,7 @@ export default function Dashboard() {
         }
       });
       setUserBlogs(Array)
-      console.log(UserBlogs);
+      // console.log(UserBlogs);
     });
 
   }
@@ -162,7 +166,7 @@ export default function Dashboard() {
               <li className="nav-item homenav">
                 <a className="nav-link active" aria-current="page" href="#"></a>
               </li>
-              <Link to={'/profile'}><button className='btn fullName'>Full Name</button></Link>
+              <Link to={'/profile'}><button className='btn fullName'>{Data.Full_Name}</button></Link>
               <button className='btn home'>Home</button>
               <button className='btn btn-primary logout' onClick={logOut}>Logout</button>
             </ul>
@@ -202,7 +206,6 @@ export default function Dashboard() {
 
             {
               UserBlogs.map((data) => {
-                console.log(data);
                 return (
                   <div className='blogDiv' key={data.id}>
                     <div className="blogDetailDiv">
@@ -211,7 +214,7 @@ export default function Dashboard() {
                       </div>
                       <div className="userNameDiv">
                         <h4 id='userproHead'>{data.Title}</h4>
-                        <h6 id='userpronames'>{"Muhammad Noman"} - <span>{data.Date}</span></h6>
+                        <h6 id='userpronames'>{Data.Full_Name} - <span>{data.Date}</span></h6>
                       </div>
                     </div>
                     <div className="blogDescDiv">

@@ -78,6 +78,7 @@
 #selectImgIcon {
     color: #036fc7;
     margin-top: 20px;
+    margin-bottom: 15px;
     font-size: 22px;
     padding: 7px;
     border: 1px dashed black;
@@ -87,6 +88,13 @@
 
 #selectImgIcon:hover {
     color: #035faa;
+}
+
+.updateBtn:hover {
+    box-shadow: 2px 2px 5px black;
+}
+.updateBtn:focus{
+    border: 1px solid black;
 }
 
 /* Media Query */
@@ -125,7 +133,6 @@
     }
 
     #ProfileImg {
-        width: 100px;
         margin-top: 20px;
     }
 
@@ -139,5 +146,10 @@
     .PeofileUpdateDiv {
         width: 85%;
         padding: 30px;
+    }
+
+    #ProfileImg {
+        width: 110px;
+        height: 110px;
     }
 }
