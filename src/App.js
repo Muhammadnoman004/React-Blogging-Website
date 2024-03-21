@@ -1,18 +1,20 @@
 import './App.css';
 import Router from './Router/Router';
-import LoginUser from './Context/Context';
+import { LoginUser, LoginUserID } from './Context/Context';
 import { useEffect, useState } from 'react';
 import { auth, onAuthStateChanged, getDoc, doc, db } from './Firebase Config/Config'
 
 function App() {
   const [data, setdata] = useState(LoginUser);
+  const [ID, setID] = useState(LoginUserID);
 
   useEffect(() => {
 
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         const uid = user.uid;
-        console.log("Current User---->", uid);
+        setID(uid)
+        // console.log("Current User---->", uid);
 
         const docRef = doc(db, "users", uid);
         const docSnap = await getDoc(docRef);
@@ -31,7 +33,9 @@ function App() {
   return (
     <div className="App">
       <LoginUser.Provider value={[data, setdata]}>
-        <Router />
+        <LoginUserID.Provider value={[ID, setID]}>
+          <Router />
+        </LoginUserID.Provider>
       </LoginUser.Provider>
     </div>
   );

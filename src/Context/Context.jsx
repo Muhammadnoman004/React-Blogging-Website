@@ -1,5 +1,6 @@
 import { createContext } from "react";
 
 const LoginUser = createContext(null);
+const LoginUserID = createContext(null);
 
-export default LoginUser;
+export { LoginUser, LoginUserID };

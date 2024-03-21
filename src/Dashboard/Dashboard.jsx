@@ -7,10 +7,11 @@ import logo from '../assets/blog-removebg-preview.png'
 import user from '../assets/user.png'
 import { auth, signOut } from '../Firebase Config/Config'
 import { db, addDoc, collection, onSnapshot, deleteDoc, updateDoc, doc } from '../Firebase Config/Config'
-import LoginUser from '../Context/Context'
+import { LoginUser, LoginUserID } from '../Context/Context'
 
 export default function Dashboard() {
-  const [Data, setData] = useContext(LoginUser)
+  const [Data, setData] = useContext(LoginUser);
+  const [ID, setID] = useContext(LoginUserID);
 
   let [UserBlogs, setUserBlogs] = useState([]);
   let [BlogTitle, setBlogTitle] = useState("");
@@ -23,6 +24,7 @@ export default function Dashboard() {
   let navigate = useNavigate()
 
   console.log(Data);
+  console.log(ID);
 
   const BlogTitleInp = (e) => {
     setBlogTitle(e.target.value)
