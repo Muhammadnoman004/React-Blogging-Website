@@ -92,6 +92,7 @@ export default function Dashboard() {
           Title: BlogTitle,
           Blog: BlogDes,
           Uid: ID,
+          UserData: Data,
           Date: new Date().toLocaleDateString()
         });
         Swal.fire({
@@ -154,8 +155,7 @@ export default function Dashboard() {
     });
 
   }
-  
-  console.log();
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg fixed-top">

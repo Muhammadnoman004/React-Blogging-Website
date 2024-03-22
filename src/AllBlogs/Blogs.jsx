@@ -1,29 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import './Blogs.css'
 import user from '../assets/user.png'
-import { db, onSnapshot, collection } from '../Firebase Config/Config'
+import { db, collection, getDocs } from '../Firebase Config/Config'
 
 export default function Blogs() {
 
   let [AllData, setAllData] = useState([])
-  const getData = () => {
 
-    const q = (collection(db, "AllBlogs"));
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      let Array = []
-      snapshot.docChanges().forEach((change) => {
-        if (change.type === "added") {
-          Array.push(change.doc.data())
-        }
-        if (change.type === "modified") {
-          Array.push(change.doc.data())
-        }
-        if (change.type === "removed") {
-          Array.push(change.doc.data())
-        }
-      });
-      setAllData(Array)
+  const getData = async () => {
+
+    const querySnapshot = await getDocs(collection(db, "AllBlogs"));
+    let Array = []
+    querySnapshot.forEach((doc) => {
+      Array.push(doc.data())
+      console.log(doc.id, " => ", doc.data());
     });
+    setAllData(Array)
   }
 
   useEffect(() => {
@@ -45,16 +37,16 @@ export default function Blogs() {
 
         {
           AllData.map((data, index) => {
-            console.log(data);
+            // console.log(data);
             return (
               <div className='blogDiv' key={index}>
                 <div className="blogDetailDiv">
                   <div className="userProfileImg">
-                    <img src={user} alt="" id='userproimg' />
+                    <img src={data.UserData.ImageURL} alt="" id='userproimg' />
                   </div>
                   <div className="userNameDiv">
                     <h4 id='userproHead'>{data.Title}</h4>
-                    <h6 id='userpronames'>{data.ProfileName} - <span>{data.Date}</span></h6>
+                    <h6 id='userpronames'>{data.UserData.Full_Name} - <span>{data.Date}</span></h6>
                   </div>
                 </div>
                 <div className="blogDescDiv">
