@@ -4,9 +4,9 @@ import './Dashboard.css'
 import Swal from 'sweetalert2'
 import { Link } from 'react-router-dom'
 import logo from '../assets/blog-removebg-preview.png'
-import user from '../assets/user.png'
+import userImage from '../assets/user.png'
 import { auth, signOut } from '../Firebase Config/Config'
-import { db, addDoc, collection, onSnapshot, deleteDoc, updateDoc, doc } from '../Firebase Config/Config'
+import { db, addDoc, collection, onSnapshot, deleteDoc, updateDoc, doc, query, where, } from '../Firebase Config/Config'
 import { LoginUser, LoginUserID } from '../Context/Context'
 
 export default function Dashboard() {
@@ -23,7 +23,7 @@ export default function Dashboard() {
   let [ModalDes, setModalDes] = useState("")
   let navigate = useNavigate()
 
-  console.log(Data);
+  // console.log(Data);
   console.log(ID);
 
   const BlogTitleInp = (e) => {
@@ -37,7 +37,8 @@ export default function Dashboard() {
 
   const GetData = () => {
 
-    const q = (collection(db, "AllBlogs"));
+    const AllBlogsRef = collection(db, "AllBlogs");
+    const q = query(AllBlogsRef, where("Uid", "==", `${ID}`));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       let Array = []
       snapshot.docChanges().forEach((change) => {
@@ -48,6 +49,7 @@ export default function Dashboard() {
             ...change.doc.data(),
           }
           Array.push(allData)
+          console.log("Array ==> ", Array);
         }
         if (change.type === "modified") {
           let allData = {
@@ -65,14 +67,12 @@ export default function Dashboard() {
         }
       });
       setUserBlogs(Array)
-      // console.log(UserBlogs);
     });
 
   }
   useEffect(() => {
     GetData()
-  }, [])
-
+  }, [ID])
 
   // ADD DATA IN DATABASE //
 
@@ -91,6 +91,7 @@ export default function Dashboard() {
         const docRef = await addDoc(collection(db, "AllBlogs"), {
           Title: BlogTitle,
           Blog: BlogDes,
+          Uid: ID,
           Date: new Date().toLocaleDateString()
         });
         Swal.fire({
@@ -153,7 +154,8 @@ export default function Dashboard() {
     });
 
   }
-
+  
+  console.log();
   return (
     <div>
       <nav className="navbar navbar-expand-lg fixed-top">
@@ -168,7 +170,7 @@ export default function Dashboard() {
               <li className="nav-item homenav">
                 <a className="nav-link active" aria-current="page" href="#"></a>
               </li>
-              <Link to={'/profile'}><button className='btn fullName'>{Data.Full_Name}</button></Link>
+              <Link to={'/profile'}><button className='btn fullName' style={{ display: Data.Full_Name ? "block" : "none" }}>{Data.Full_Name}</button></Link>
               <button className='btn home'>Home</button>
               <button className='btn btn-primary logout' onClick={logOut}>Logout</button>
             </ul>
@@ -212,7 +214,9 @@ export default function Dashboard() {
                   <div className='blogDiv' key={data.id}>
                     <div className="blogDetailDiv">
                       <div className="userProfileImg">
-                        <img src={user} alt="" id='userproimg' />
+                        {
+                          <img src={Data.ImageURL} alt="" id='userproimg' />
+                        }
                       </div>
                       <div className="userNameDiv">
                         <h4 id='userproHead'>{data.Title}</h4>
