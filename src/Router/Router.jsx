@@ -6,6 +6,7 @@ import Navbar from '../Navbar/Navbar';
 import Home from '../Pages/Home';
 import Dashboard from '../Dashboard/Dashboard';
 import Profile from '../Profile/Profile';
+import UserBlogs from '../UserBlogs/UserBlogs';
 
 export default function Router() {
     return (
@@ -13,6 +14,7 @@ export default function Router() {
             <BrowserRouter>
                 <Routes>
                     <Route path='/' element={<Home />} />
+                    <Route path='/UserBlogs' element={<UserBlogs />} />
                     <Route path='/Navbar' element={<Navbar />} />
                     <Route path='/signup' element={<Signup />} />
                     <Route path='/signup/login' element={<Login />} />

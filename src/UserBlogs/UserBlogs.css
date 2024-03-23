@@ -1,18 +1,4 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-.spinerDiv {
-    margin-top: 25vh;
-    font-size: 25px;
-    width: 100px;
-    height: 100px;
-}
-
-
-#welcome {
+#BackToHome {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-weight: bold;
     background-color: white;
@@ -23,14 +9,9 @@
     height: 100px;
     border-radius: 10px;
     box-shadow: inset 2px 2px 5px rgb(128, 127, 127);
-
 }
 
-#welcome>span {
-    color: rgb(3, 111, 199);
-}
-
-#ABlogs {
+#AllBlogs {
     text-align: start;
     padding-left: 30px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -39,15 +20,15 @@
     margin-bottom: 15px;
 }
 
-.blogMainDiv {
+.UserBlogMainDiv {
     padding: 0 20px;
     margin-bottom: 50px;
 }
 
-.blogDiv {
+.UserBlogDiv {
     background-color: white;
     box-shadow: 0px 0px 5px black;
-    margin: auto;
+    width: 80%;
     margin-top: 30px;
     border-radius: 10px;
     display: flex;
@@ -56,12 +37,12 @@
     gap: 25px;
 }
 
-#userproimg {
+#userImg {
     width: 70px;
     border-radius: 360px;
 }
 
-#userproHead {
+#userHead {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-weight: bold;
     margin-bottom: 0;
@@ -69,7 +50,7 @@
     text-transform: capitalize;
 }
 
-#userpronames {
+#userNames {
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-weight: bold;
     font-size: small;
@@ -77,33 +58,28 @@
     text-align: start;
 }
 
-#userblogpara {
+#userPara {
     text-align: start;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     word-wrap: break-word;
 }
 
-.blogDetailDiv {
+.UserBlogDetailDiv {
     display: flex;
     align-items: center;
     gap: 20px;
 }
 
-#SeeAllBlog {
-    display: flex;
-    font-size: small;
-    text-decoration: none;
-    font-family: 'Inter';
-}
+/* Media Query */
 
 @media screen and (max-width: 410px) {
 
-    #userproHead {
+    #userHead {
         font-size: 17px;
         text-align: start;
     }
 
-    #userpronames {
+    #userNames {
         font-size: 11px;
         text-align: start;
         padding-top: 3px;
@@ -111,16 +87,17 @@
 }
 
 @media screen and (max-width: 342px) {
-    #userproimg {
+
+    #userImg {
         width: 50px;
     }
 
-    #userproHead {
+    #userHead {
         font-size: 13px;
         text-align: start;
     }
 
-    #userpronames {
+    #userNames {
         font-size: 9px;
         text-align: start;
         padding-top: 3px;

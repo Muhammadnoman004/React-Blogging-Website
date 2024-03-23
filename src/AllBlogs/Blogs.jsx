@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './Blogs.css'
 import user from '../assets/user.png'
 import { db, collection, getDocs } from '../Firebase Config/Config'
+import { Link } from 'react-router-dom'
 
 export default function Blogs() {
 
@@ -52,6 +53,7 @@ export default function Blogs() {
                 <div className="blogDescDiv">
                   <p id='userblogpara'>{data.Blog}</p>
                 </div>
+                <Link to={'/UserBlogs'}><p id='SeeAllBlog'>See all from this user</p></Link>
               </div>
             )
           })
