@@ -9,6 +9,15 @@ export default function UserBlogs() {
     <div>
       <Navbar /><br /><br /><br /><br />
       <Link to={'/'}><h1 id='BackToHome'>Back to home!</h1></Link>
+
+      <div className="UserProfileDiv">
+        <div className='UserProfileInnerDiv'>
+          <img src={userImg} alt="" id='UserProfileImg' />
+          <h2 id='UserProfileName'>User Name</h2>
+          <h5 id='UserProfileEmail'>ABC@gmail.com</h5>
+        </div>
+      </div>
+
       <h3 id='AllBlogs'>All Blogs</h3>
 
       <div className='UserBlogMainDiv'>
@@ -28,12 +37,6 @@ export default function UserBlogs() {
           </div>
         </div>
 
-      </div>
-
-      <div className="UserProfileDiv">
-        <img src={userImg} alt="" id='UserProfileImg' />
-        <h2 id='UserProfileName'>User Name</h2>
-        <h5 id='UserProfileEmail'>ABC@gmail.com</h5>
       </div>
 
     </div>

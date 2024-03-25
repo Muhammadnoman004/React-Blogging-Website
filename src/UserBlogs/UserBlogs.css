@@ -70,25 +70,46 @@
     gap: 20px;
 }
 
-#UserProfileImg {
-    width: 135px;
-    height: 135px;
+.UserProfileDiv {
+    box-shadow: 0px 0px 5px black;
+    background-color: white;
+    width: auto;
+    margin: 22px;
     margin-top: 30px;
+    border-radius: 10px;
+    padding: 20px 30px;
+    gap: 25px;
+}
+
+.UserProfileInnerDiv {
+    background-color: #dee2e6be;
+    min-height: 230px;
+    border-radius: 10px;
+    box-shadow: 0px 3px 2px black;
+}
+
+#UserProfileImg {
+    width: 125px;
+    height: 125px;
+    margin-top: 17px;
     aspect-ratio: 2 / 2;
     object-fit: cover;
     border-radius: 50%;
     background-color: white;
+    border: 2px solid #036fc7;
 }
 
 #UserProfileName {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-weight: bold;
     color: #036fc7;
+    margin-top: 10px;
 }
 
 #UserProfileEmail {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-weight: 550;
+    margin-top: -10px;
 }
 
 /* Media Query */
@@ -104,6 +125,16 @@
         font-size: 11px;
         text-align: start;
         padding-top: 3px;
+    }
+
+    #UserProfileImg {
+        width: 100px;
+        height: 100px;
+        margin-top: 25px;
+    }
+
+    #UserProfileEmail {
+        font-size: medium;
     }
 }
 
