@@ -30,6 +30,12 @@ export default function UserBlogs() {
 
       </div>
 
+      <div className="UserProfileDiv">
+        <img src={userImg} alt="" id='UserProfileImg' />
+        <h2 id='UserProfileName'>User Name</h2>
+        <h5 id='UserProfileEmail'>ABC@gmail.com</h5>
+      </div>
+
     </div>
   )
 }

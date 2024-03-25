@@ -28,7 +28,7 @@
 .UserBlogDiv {
     background-color: white;
     box-shadow: 0px 0px 5px black;
-    width: 80%;
+    width: auto;
     margin-top: 30px;
     border-radius: 10px;
     display: flex;
@@ -68,6 +68,27 @@
     display: flex;
     align-items: center;
     gap: 20px;
+}
+
+#UserProfileImg {
+    width: 135px;
+    height: 135px;
+    margin-top: 30px;
+    aspect-ratio: 2 / 2;
+    object-fit: cover;
+    border-radius: 50%;
+    background-color: white;
+}
+
+#UserProfileName {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
+    color: #036fc7;
+}
+
+#UserProfileEmail {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 550;
 }
 
 /* Media Query */
