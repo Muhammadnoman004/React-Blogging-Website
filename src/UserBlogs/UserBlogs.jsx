@@ -8,18 +8,26 @@ import { collection, query, where, getDocs, db } from '../Firebase Config/Config
 export default function UserBlogs() {
 
   const [userBlog, setuserBlog] = useState([])
+  const [userProImg, setuserProImg] = useState("")
+  const [userName, setuserName] = useState("")
+  const [userEmail, setuserEmail] = useState("")
 
   const URlParams = new URLSearchParams(window.location.search)
   const UserParams = URlParams.get("user")
   console.log(UserParams);
 
   const getUserBlog = async () => {
-
+    let Arry = []
     const q = query(collection(db, "AllBlogs"), where("Uid", "==", UserParams));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       console.log(doc.id, " => ", doc.data());
-      setuserBlog(doc.data())
+      setuserProImg(doc.data().UserData.ImageURL);
+      setuserName(doc.data().UserData.Full_Name);
+      setuserEmail(doc.data().UserData.Email);
+      Arry.push(doc.data())
+      setuserBlog(Arry)
+
     });
   }
   useEffect(() => {
@@ -33,9 +41,9 @@ export default function UserBlogs() {
 
       <div className="UserProfileDiv">
         <div className='UserProfileInnerDiv'>
-          <img src={userImg} alt="" id='UserProfileImg' />
-          <h2 id='UserProfileName'>User Name</h2>
-          <h5 id='UserProfileEmail'>ABC@gmail.com</h5>
+          <img src={!userProImg ? userImg : userProImg} alt="" id='UserProfileImg' />
+          <h2 id='UserProfileName'>{!userName ? "User Name" : userName}</h2>
+          <h5 id='UserProfileEmail'>{!userEmail ? "ABC@gmail.com" : userEmail}</h5>
         </div>
       </div>
 
@@ -43,20 +51,28 @@ export default function UserBlogs() {
 
       <div className='UserBlogMainDiv'>
 
-        <div className='UserBlogDiv'>
-          <div className="UserBlogDetailDiv">
-            <div className="userProfileImg">
-              <img src={userImg} alt="" id='userImg' />
-            </div>
-            <div className="userNameDiv">
-              <h4 id='userHead'>Softwere enginner</h4>
-              <h6 id='userNames'>Muhammad Noman - <span>{new Date().toLocaleString()}</span></h6>
-            </div>
-          </div>
-          <div className="blogDescDiv">
-            <p id='userPara'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut illo non ullam ratione, aliquid omnis laboriosam quas reprehenderit perferendis numquam, molestias sed voluptatibus? Veritatis, commodi! Adipisci non temporibus quos rerum.</p>
-          </div>
-        </div>
+        {
+          userBlog.map((userData, index) => {
+
+            return (
+
+              <div className='UserBlogDiv' key={index}>
+                <div className="UserBlogDetailDiv">
+                  <div className="userProfileImg">
+                    <img src={!userData.UserData.ImageURL ? userImg : userData.UserData.ImageURL} alt="" id='userImg' />
+                  </div>
+                  <div className="userNameDiv">
+                    <h4 id='userHead'>{userData.Title}</h4>
+                    <h6 id='userNames'>{userData.UserData.Full_Name} - <span>{userData.Date}</span></h6>
+                  </div>
+                </div>
+                <div className="blogDescDiv">
+                  <p id='userPara'>{userData.Blog}</p>
+                </div>
+              </div>
+            )
+          })
+        }
 
       </div>
 
