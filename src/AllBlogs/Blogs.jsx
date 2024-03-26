@@ -53,7 +53,7 @@ export default function Blogs() {
                 <div className="blogDescDiv">
                   <p id='userblogpara'>{data.Blog}</p>
                 </div>
-                <Link to={'/UserBlogs'}><p id='SeeAllBlog'>See all from this user</p></Link>
+                <Link to={`/UserBlogs?user=${data.Uid}`}><p id='SeeAllBlog'>See all from this user</p></Link>
               </div>
             )
           })
