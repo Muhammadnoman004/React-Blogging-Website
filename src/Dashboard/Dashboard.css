@@ -169,6 +169,23 @@
 
 }
 
+@media screen and (max-width: 570px) {
+    .fullName {
+        width: 95%;
+        margin-left: 12px;
+    }
+
+    .home {
+        width: 95%;
+        margin-left: 12px;
+    }
+
+    .logout {
+        width: 95%;
+        margin-left: 12px;
+    }
+}
+
 @media screen and (max-width: 490px) {
     .anyBlogDiv {
         margin: 15px;
@@ -186,18 +203,18 @@
 
 @media screen and (max-width: 330px) {
     .fullName {
-        width: 50%;
-        margin-left: 80px;
+        width: 95%;
+        margin-left: 8px;
     }
 
     .home {
-        width: 50%;
-        margin-left: 80px;
+        width: 95%;
+        margin-left: 8px;
     }
 
     .logout {
-        width: 50%;
-        margin-left: 80px;
+        width: 95%;
+        margin-left: 8px;
     }
 
 }
