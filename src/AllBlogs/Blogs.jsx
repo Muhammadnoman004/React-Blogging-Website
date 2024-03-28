@@ -38,12 +38,11 @@ export default function Blogs() {
 
         {
           AllData.map((data, index) => {
-            // console.log(data);
             return (
               <div className='blogDiv' key={index}>
                 <div className="blogDetailDiv">
                   <div className="userProfileImg">
-                    <img src={data.UserData.ImageURL} alt="" id='userproimg' />
+                    <img src={data.UserData.ImageURL} alt="#" id='userproimg' />
                   </div>
                   <div className="userNameDiv">
                     <h4 id='userproHead'>{data.Title}</h4>

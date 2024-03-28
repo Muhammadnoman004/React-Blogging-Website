@@ -69,6 +69,15 @@
     object-fit: contain;
     border-radius: 50%;
     background-color: white;
+    cursor: pointer;
+    border: 5px double #036fc7;
+}
+
+#ProfileImg:hover {
+    width: 200px;
+    height: 200px;
+    transition: 1s;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
 .ProfileImgDiv #selectImg {
@@ -93,7 +102,8 @@
 .updateBtn:hover {
     box-shadow: 2px 2px 5px black;
 }
-.updateBtn:focus{
+
+.updateBtn:focus {
     border: 1px solid black;
 }
 
@@ -151,5 +161,24 @@
     #ProfileImg {
         width: 110px;
         height: 110px;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    #ProfileImg:hover {
+        width: 125px;
+        height: 125px;
+    }
+}
+
+@media screen and (max-width: 210px) {
+    #ProfileImg {
+        width: 70px;
+        height: 70px;
+    }
+
+    #ProfileImg:hover {
+        width: 90px;
+        height: 90px;
     }
 }

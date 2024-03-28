@@ -100,6 +100,7 @@ export default function Dashboard() {
           title: "Good job",
           text: "Your Blog Published Successfully!",
         });
+        GetData(ID)
         setBlogTitle("")
         setBlogDes("")
         console.log(BlogTitle);
@@ -115,7 +116,12 @@ export default function Dashboard() {
 
   const DelData = async (id) => {
     await deleteDoc(doc(db, "AllBlogs", id));
-
+    Swal.fire({
+      icon: "error",
+      title: "Delete...",
+      text: "Deleted Successfully!",
+    });
+    GetData(ID);
   }
 
   //  GET DATA IN MODAL FROM DATABASE //
@@ -141,6 +147,12 @@ export default function Dashboard() {
       Blog: ModalDes,
       Update_Time: new Date().toLocaleString()
     });
+    Swal.fire({
+      icon: "success",
+      title: "Good job",
+      text: "Updated Successfully!",
+    });
+    GetData(ID)
   }
 
   //  LOGOUT  //
