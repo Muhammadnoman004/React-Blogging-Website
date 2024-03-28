@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './Blogs.css'
 import user from '../assets/user.png'
+import loader from '../assets/loader.gif'
 import { db, collection, getDocs } from '../Firebase Config/Config'
 import { Link } from 'react-router-dom'
 
@@ -24,8 +25,8 @@ export default function Blogs() {
   }, [])
 
   if (AllData.length == '') {
-    return <div className="spinner-border text-primary spinerDiv" role="status">
-      <span className="visually-hidden">Loading...</span>
+    return <div role="status">
+      <img className="spinerDiv" src={loader} alt="" />
     </div>
   }
 
